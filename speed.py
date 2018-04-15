@@ -11,7 +11,7 @@ def tf_model_speed():
     num_classes = 1000
     weight_decay = 0.0001
     is_training = False
-    batch_size = 32
+    batch_size = 64
     test_num = 10
     model_names = [
         'inception_v1', 'inception_v2', 'inception_v3', 'inception_v4',
@@ -20,8 +20,8 @@ def tf_model_speed():
         'resnet_v2_50', 'resnet_v2_101', 'resnet_v2_152', 'resnet_v2_200',
         'vgg_16', 'vgg_19',
         'alexnet_v2',
-        'mobilenet_v1',  # 'mobilenet_v1_075','mobilenet_v1_050','mobilenet_v1_025',
-        # 'nasnet_mobile', 'nasnet_large',
+        'mobilenet_v1', 'mobilenet_v1_075','mobilenet_v1_050','mobilenet_v1_025',
+        'nasnet_mobile', 'nasnet_large',
     ]
     for model_name in model_names:
         logging.info(model_name)
@@ -42,6 +42,7 @@ def tf_model_speed():
             init = tf.global_variables_initializer()
             with tf.Session() as sess:
                 sess.run(init)
+                sess.run(logits)
                 start = time.time()
                 for _ in range(test_num):
                     sess.run(logits)
